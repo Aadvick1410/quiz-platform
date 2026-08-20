@@ -38,13 +38,15 @@ export const Navbar = () => {
                     <span className="text-sm font-medium text-slate-200">{user.name}</span>
                     <span className="text-xs text-slate-400 capitalize">{user.role.toLowerCase()}</span>
                   </div>
-                  {user.avatar ? (
-                    <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full object-cover border border-indigo-500/30" />
-                  ) : (
-                    <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 text-indigo-300 font-bold">
-                      {user.name.charAt(0).toUpperCase()}
-                    </div>
-                  )}
+                  <Link to="/settings" title="Settings" className="hover:opacity-80 transition-opacity">
+                    {user.avatar ? (
+                      <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full object-cover border border-indigo-500/30" />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 text-indigo-300 font-bold">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                  </Link>
                   <button 
                     onClick={logout}
                     className="p-2 text-slate-400 hover:text-red-400 transition-colors"

@@ -28,6 +28,7 @@ import { StudentDashboard } from './pages/student/StudentDashboard';
 import { QuizDetails } from './pages/student/QuizDetails';
 import { QuizAttempt } from './pages/student/QuizAttempt';
 import { QuizResult } from './pages/student/QuizResult';
+import { StudentSettings } from './pages/student/StudentSettings';
 
 export default function App() {
   return (
@@ -64,6 +65,11 @@ export default function App() {
                 <Route path="/admin/analytics" element={<AdminAnalytics />} />
                 <Route path="/admin/settings" element={<AdminSettings />} />
               </Route>
+              <Route path="/settings" element={
+                <ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']}>
+                  <StudentSettings />
+                </ProtectedRoute>
+              } />
             </Route>
             
             {/* Quiz Attempt without Layout (Full Screen) */}
