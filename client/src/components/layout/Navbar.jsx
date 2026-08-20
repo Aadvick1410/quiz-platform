@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { LogOut, User, LayoutDashboard, BrainCircuit } from 'lucide-react';
+import { LogOut, User, LayoutDashboard, BrainCircuit, Settings } from 'lucide-react';
 import { Button } from '../ui/Button';
 
 export const Navbar = () => {
@@ -38,14 +38,19 @@ export const Navbar = () => {
                     <span className="text-sm font-medium text-slate-200">{user.name}</span>
                     <span className="text-xs text-slate-400 capitalize">{user.role.toLowerCase()}</span>
                   </div>
-                  <Link to="/settings" title="Settings" className="hover:opacity-80 transition-opacity">
-                    {user.avatar ? (
-                      <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full object-cover border border-indigo-500/30" />
-                    ) : (
-                      <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 text-indigo-300 font-bold">
-                        {user.name.charAt(0).toUpperCase()}
-                      </div>
-                    )}
+                  <div className="flex items-center gap-2">
+                    <Link to="/settings" title="Settings" className="hover:opacity-80 transition-opacity">
+                      {user.avatar ? (
+                        <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full object-cover border border-indigo-500/30" />
+                      ) : (
+                        <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 text-indigo-900 font-bold">
+                          {user.name.charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                    </Link>
+                  </div>
+                  <Link to="/settings" className="p-2 text-slate-400 hover:text-slate-100 transition-colors" title="Settings">
+                    <Settings className="w-5 h-5" />
                   </Link>
                   <button 
                     onClick={logout}
