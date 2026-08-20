@@ -13,16 +13,16 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="p-2 bg-indigo-500/20 rounded-lg group-hover:bg-indigo-500/30 transition-colors">
-              <BrainCircuit className="w-6 h-6 text-indigo-400" />
+            <div className="p-2 canva-gradient-bg rounded-xl group-hover:scale-105 transition-transform">
+              <BrainCircuit className="w-6 h-6 text-white" />
             </div>
-            <span className="font-bold text-xl tracking-tight text-white">
-              Quiz<span className="text-indigo-400">Master</span>
+            <span className="font-bold text-2xl tracking-tight text-slate-800">
+              Quiz<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7d2ae8] to-[#00c4cc]">Master</span>
             </span>
           </Link>
 
           <div className="flex items-center gap-4">
-            <Link to="/leaderboard" className="hidden sm:inline-flex text-slate-300 hover:text-white transition-colors text-sm font-medium">
+            <Link to="/leaderboard" className="hidden sm:inline-flex text-slate-600 hover:text-brand-600 transition-colors text-sm font-semibold">
               Leaderboard
             </Link>
             {user ? (
@@ -35,19 +35,19 @@ export const Navbar = () => {
                 </Link>
                 <div className="flex items-center gap-3 pl-4 border-l border-slate-700">
                   <div className="flex flex-col items-end hidden sm:flex">
-                    <span className="text-sm font-medium text-slate-200">{user.name}</span>
-                    <span className="text-xs text-slate-400 capitalize">{user.role.toLowerCase()}</span>
+                    <span className="text-sm font-bold text-slate-800">{user.name}</span>
+                    <span className="text-xs text-slate-500 font-medium capitalize">{user.role.toLowerCase()}</span>
                   </div>
                   {user.avatar ? (
-                    <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full object-cover border border-indigo-500/30" />
+                    <img src={user.avatar} alt={user.name} className="w-9 h-9 rounded-full object-cover shadow-sm" />
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30 text-indigo-300 font-bold">
+                    <div className="w-9 h-9 rounded-full canva-gradient-bg flex items-center justify-center font-bold shadow-sm">
                       {user.name.charAt(0).toUpperCase()}
                     </div>
                   )}
                   <button 
                     onClick={logout}
-                    className="p-2 text-slate-400 hover:text-red-400 transition-colors"
+                    className="p-2 text-slate-400 hover:text-red-500 transition-colors"
                     title="Logout"
                   >
                     <LogOut className="w-5 h-5" />
