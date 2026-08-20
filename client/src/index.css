@@ -1,91 +1,99 @@
 @import "tailwindcss";
 
 @theme {
-  /* Canva-like soft gradients and bright, friendly colors */
-  --color-brand-100: #e8f0fe;
-  --color-brand-500: #00c4cc; /* Canva cyan */
-  --color-brand-600: #7d2ae8; /* Canva purple */
-  --color-brand-900: #3b0086;
+  /* Formal Corporate Navy instead of Neon Indigo */
+  --color-indigo-50: #f8fafc;
+  --color-indigo-100: #f1f5f9;
+  --color-indigo-400: #64748b;
+  --color-indigo-500: #334155;
+  --color-indigo-600: #1e293b;
+  --color-indigo-900: #020617;
+  
+  /* Replace neon cyan with muted slate */
+  --color-cyan-400: #94a3b8;
 
-  /* INVERT SLATE SCALE FOR PERFECT LIGHT MODE */
-  --color-slate-50: #111827; /* Darkest */
-  --color-slate-100: #1f2937; /* Headings */
-  --color-slate-200: #374151; /* Normal text */
-  --color-slate-300: #4b5563; /* Muted text */
-  --color-slate-400: #6b7280; /* Muted text */
-  --color-slate-500: #9da3af; /* Disabled text */
-  --color-slate-600: #ced2d9; /* Darker borders */
-  --color-slate-700: #e1e3e8; /* Normal borders */
-  --color-slate-800: #f4f5f7; /* Off-white for panels */
-  --color-slate-900: #ffffff; /* Main background */
+  /* INVERT SLATE TO MAKE IT A LIGHT THEME AUTOMATICALLY */
+  --color-slate-50: #0f172a;
+  --color-slate-100: #1e293b;
+  --color-slate-200: #334155;
+  --color-slate-300: #475569;
+  --color-slate-400: #64748b;
+  --color-slate-500: #94a3b8;
+  --color-slate-600: #cbd5e1;
+  --color-slate-700: #e2e8f0;
+  --color-slate-800: #f8fafc; /* Cards and Navbar */
+  --color-slate-900: #ffffff; /* Main Background */
 
-  /* Friendly, modern sans-serif */
-  --font-sans: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  /* Highly professional, formal font */
+  --font-sans: 'Georgia', 'Times New Roman', serif;
 }
 
 /* Base styles */
 @layer base {
   body {
-    /* Canva has a very slight off-white background to make white cards pop */
-    @apply bg-slate-800 text-slate-200 antialiased;
+    @apply bg-slate-900 text-slate-100 antialiased;
     font-family: var(--font-sans);
   }
 
   /* Elegant minimal scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-transparent;
+    @apply bg-slate-900;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-slate-300 rounded-full;
+    @apply bg-slate-700 rounded-none;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-slate-400;
+    @apply bg-slate-500;
+  }
+  
+  /* Globally make all buttons and links bounce hilariously on hover */
+  button, a {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  }
+  button:hover, a:hover {
+    transform: scale(1.1) rotate(-3deg) !important;
+    cursor: pointer;
+  }
+  button:active, a:active {
+    transform: scale(0.6) rotate(10deg) !important;
   }
 }
 
 /* Custom utilities */
 @layer utilities {
-  /* Fix hardcoded text-white in original components */
   .text-white {
-    color: var(--color-slate-50) !important;
+    color: var(--color-slate-100) !important;
   }
-  .canva-gradient-bg, .canva-gradient-bg .text-white, .bg-red-500, .bg-red-500 .text-white {
+  .bg-indigo-600, .bg-indigo-600 .text-white, .bg-red-600, .bg-red-600 .text-white {
     color: #ffffff !important;
   }
-
   .glass {
-    /* Pure white cards with soft, airy shadows */
-    @apply bg-slate-900 border border-slate-700/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)];
+    /* Replace glassmorphism with harsh neo-brutalist / newspaper style */
+    @apply bg-slate-800 border-2 border-slate-100 shadow-[4px_4px_0_0_#1e293b];
   }
   .glass-card {
-    /* Extremely smooth, rounded cards */
-    @apply bg-slate-900 border border-slate-700/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] rounded-2xl overflow-hidden transition-all duration-300;
+    /* Formal cards with a quirky harsh shadow */
+    @apply bg-slate-800 border-2 border-slate-100 shadow-[6px_6px_0_0_#1e293b] rounded-none overflow-hidden transition-all duration-300;
   }
   .glass-card:hover {
-    /* Smooth lift, Canva style */
-    @apply shadow-[0_12px_30px_-8px_rgba(0,0,0,0.12)] -translate-y-1.5;
+    /* Comical wobble on hover for cards */
+    @apply border-indigo-500 shadow-[12px_12px_0_0_#334155] -translate-y-2 translate-x-1;
+    animation: jelly 0.6s ease-in-out;
   }
   .text-gradient {
-    /* Classic Canva purple-to-cyan gradient */
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-[#7d2ae8] to-[#00c4cc] font-extrabold tracking-tight;
-  }
-  
-  .canva-gradient-bg {
-    @apply bg-gradient-to-r from-[#7d2ae8] to-[#00c4cc] text-white border-0;
-  }
-  .canva-gradient-bg:hover {
-    @apply shadow-[0_8px_25px_-5px_rgba(125,42,232,0.4)] opacity-95;
+    /* Remove gradient, make it just solid bold formal text */
+    @apply text-slate-100 font-bold tracking-tight underline decoration-indigo-500 decoration-4 underline-offset-4;
   }
 }
 
-/* Smooth, elegant animations */
+/* Animations */
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(40px) rotate(5deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0); }
 }
 
 @keyframes fadeIn {
@@ -93,10 +101,28 @@
   to { opacity: 1; }
 }
 
+@keyframes pulse-glow {
+  /* Replace glow with a harsh outline pulse */
+  0%, 100% { outline: 2px solid transparent; }
+  50% { outline: 4px dashed #334155; outline-offset: 4px; }
+}
+
+@keyframes jelly {
+  0% { transform: scale(1, 1); }
+  25% { transform: scale(1.05, 0.95); }
+  50% { transform: scale(0.95, 1.05); }
+  75% { transform: scale(1.02, 0.98); }
+  100% { transform: scale(1, 1); }
+}
+
 .animate-slide-up {
-  animation: slideUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
 }
