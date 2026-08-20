@@ -6,6 +6,7 @@ import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { AppLayout } from './components/layout/AppLayout';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 import { Login } from './pages/auth/Login';
 import { Register } from './pages/auth/Register';
@@ -67,7 +68,9 @@ export default function App() {
               </Route>
               <Route path="/settings" element={
                 <ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']}>
-                  <StudentSettings />
+                  <ErrorBoundary>
+                    <StudentSettings />
+                  </ErrorBoundary>
                 </ProtectedRoute>
               } />
             </Route>
