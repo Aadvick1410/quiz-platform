@@ -10,13 +10,13 @@ export const Button = ({
   disabled,
   ...props
 }) => {
-  const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseStyles = 'inline-flex items-center justify-center font-bold uppercase tracking-wider transition-all duration-200 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed border-2 border-slate-100 rounded-none shadow-[4px_4px_0_0_#1e293b] hover:shadow-[6px_6px_0_0_#1e293b] hover:-translate-y-1 active:translate-y-2 active:shadow-none';
   
   const variants = {
-    primary: 'bg-indigo-600 text-white hover:bg-indigo-500 focus:ring-indigo-500 shadow-lg shadow-indigo-500/20',
-    secondary: 'bg-slate-800 text-slate-200 hover:bg-slate-700 focus:ring-slate-500 border border-slate-700',
-    danger: 'bg-red-600 text-white hover:bg-red-500 focus:ring-red-500 shadow-lg shadow-red-500/20',
-    ghost: 'bg-transparent text-slate-300 hover:text-white hover:bg-slate-800 focus:ring-slate-500',
+    primary: 'bg-indigo-600 text-slate-100 hover:bg-indigo-500',
+    secondary: 'bg-slate-800 text-slate-100 hover:bg-slate-700',
+    danger: 'bg-red-600 text-white hover:bg-red-500',
+    ghost: 'bg-transparent text-slate-200 hover:text-slate-100 hover:bg-slate-800 shadow-none border-transparent hover:border-slate-100 hover:shadow-[4px_4px_0_0_#1e293b]',
   };
 
   const sizes = {

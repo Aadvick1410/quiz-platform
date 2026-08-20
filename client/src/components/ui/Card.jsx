@@ -3,7 +3,7 @@ import React from 'react';
 export const Card = ({ children, className = '', hover = false, ...props }) => {
   return (
     <div 
-      className={`glass rounded-xl overflow-hidden ${hover ? 'hover:-translate-y-1 hover:border-indigo-500/30 hover:shadow-indigo-500/10 transition-all duration-300' : ''} ${className}`}
+      className={`glass rounded-none ${hover ? 'hover:-translate-y-2 hover:-rotate-1 hover:border-indigo-500 hover:shadow-[8px_8px_0_0_#334155] transition-all duration-300' : ''} ${className}`}
       {...props}
     >
       {children}

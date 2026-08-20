@@ -1,63 +1,93 @@
 @import "tailwindcss";
 
 @theme {
-  --color-indigo-50: #eef2ff;
-  --color-indigo-100: #e0e7ff;
-  --color-indigo-500: #6366f1;
-  --color-indigo-600: #4f46e5;
-  --color-indigo-900: #312e81;
+  /* Formal Corporate Navy instead of Neon Indigo */
+  --color-indigo-50: #f8fafc;
+  --color-indigo-100: #f1f5f9;
+  --color-indigo-400: #64748b;
+  --color-indigo-500: #334155;
+  --color-indigo-600: #1e293b;
+  --color-indigo-900: #020617;
+  
+  /* Replace neon cyan with muted slate */
+  --color-cyan-400: #94a3b8;
 
-  --color-slate-50: #f8fafc;
-  --color-slate-100: #f1f5f9;
-  --color-slate-800: #1e293b;
-  --color-slate-900: #0f172a;
+  /* INVERT SLATE TO MAKE IT A LIGHT THEME AUTOMATICALLY */
+  --color-slate-50: #0f172a;
+  --color-slate-100: #1e293b;
+  --color-slate-200: #334155;
+  --color-slate-300: #475569;
+  --color-slate-400: #64748b;
+  --color-slate-500: #94a3b8;
+  --color-slate-600: #cbd5e1;
+  --color-slate-700: #e2e8f0;
+  --color-slate-800: #f8fafc; /* Cards and Navbar */
+  --color-slate-900: #ffffff; /* Main Background */
 
-  --font-sans: 'Inter', system-ui, sans-serif;
+  /* Highly professional, formal font */
+  --font-sans: 'Georgia', 'Times New Roman', serif;
 }
 
-/* Base styles for dark-mode-first theme */
+/* Base styles */
 @layer base {
   body {
     @apply bg-slate-900 text-slate-100 antialiased;
     font-family: var(--font-sans);
   }
 
-  /* Scrollbar */
+  /* Elegant minimal scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
     @apply bg-slate-900;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-slate-700 rounded-full;
+    @apply bg-slate-700 rounded-none;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-slate-600;
+    @apply bg-slate-500;
+  }
+  
+  /* Globally make all buttons and links bounce hilariously on hover */
+  button, a {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  }
+  button:hover, a:hover {
+    transform: scale(1.1) rotate(-3deg) !important;
+    cursor: pointer;
+  }
+  button:active, a:active {
+    transform: scale(0.6) rotate(10deg) !important;
   }
 }
 
 /* Custom utilities */
 @layer utilities {
   .glass {
-    @apply bg-slate-800/60 backdrop-blur-md border border-slate-700/50 shadow-xl;
+    /* Replace glassmorphism with harsh neo-brutalist / newspaper style */
+    @apply bg-slate-800 border-2 border-slate-100 shadow-[4px_4px_0_0_#1e293b];
   }
   .glass-card {
-    @apply bg-slate-800/60 backdrop-blur-md border border-slate-700/50 shadow-xl rounded-xl overflow-hidden transition-all duration-300;
+    /* Formal cards with a quirky harsh shadow */
+    @apply bg-slate-800 border-2 border-slate-100 shadow-[6px_6px_0_0_#1e293b] rounded-none overflow-hidden transition-all duration-300;
   }
   .glass-card:hover {
-    @apply border-indigo-500/30 shadow-indigo-500/10 -translate-y-1;
+    /* Comical wobble on hover for cards */
+    @apply border-indigo-500 shadow-[12px_12px_0_0_#334155] -translate-y-2 translate-x-1;
+    animation: jelly 0.6s ease-in-out;
   }
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400;
+    /* Remove gradient, make it just solid bold formal text */
+    @apply text-slate-100 font-bold tracking-tight underline decoration-indigo-500 decoration-4 underline-offset-4;
   }
 }
 
-/* Micro-animations */
+/* Animations */
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(40px) rotate(5deg); }
+  to { opacity: 1; transform: translateY(0) rotate(0); }
 }
 
 @keyframes fadeIn {
@@ -66,16 +96,25 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.4); }
-  50% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.8); }
+  /* Replace glow with a harsh outline pulse */
+  0%, 100% { outline: 2px solid transparent; }
+  50% { outline: 4px dashed #334155; outline-offset: 4px; }
+}
+
+@keyframes jelly {
+  0% { transform: scale(1, 1); }
+  25% { transform: scale(1.05, 0.95); }
+  50% { transform: scale(0.95, 1.05); }
+  75% { transform: scale(1.02, 0.98); }
+  100% { transform: scale(1, 1); }
 }
 
 .animate-slide-up {
-  animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.3s ease-out forwards;
+  animation: fadeIn 0.4s ease-out forwards;
 }
 
 .animate-pulse-glow {

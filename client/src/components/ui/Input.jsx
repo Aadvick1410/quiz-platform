@@ -10,9 +10,9 @@ export const Input = forwardRef(({ className = '', label, error, ...props }, ref
       )}
       <input
         ref={ref}
-        className={`w-full px-4 py-2 bg-slate-800/50 border ${
-          error ? 'border-red-500 focus:border-red-500 focus:ring-red-500/20' : 'border-slate-700 focus:border-indigo-500 focus:ring-indigo-500/20'
-        } rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-4 transition-all duration-200 ${className}`}
+        className={`w-full px-4 py-2 bg-slate-900 border-2 shadow-[4px_4px_0_0_#1e293b] focus:shadow-[6px_6px_0_0_#1e293b] focus:-translate-y-1 ${
+          error ? 'border-red-500 focus:border-red-500' : 'border-slate-400 focus:border-indigo-500'
+        } rounded-none text-slate-100 placeholder-slate-500 focus:outline-none transition-all duration-200 ${className}`}
         {...props}
       />
       {error && (
