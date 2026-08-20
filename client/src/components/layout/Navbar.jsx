@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { LogOut, User, LayoutDashboard, BrainCircuit, Settings } from 'lucide-react';
+import { LogOut, User, LayoutDashboard, Glasses, Settings } from 'lucide-react';
 import { Button } from '../ui/Button';
 
 export const Navbar = () => {
@@ -13,8 +13,8 @@ export const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="p-2 bg-indigo-500/20 rounded-lg group-hover:bg-indigo-500/30 transition-colors">
-              <BrainCircuit className="w-6 h-6 text-indigo-400" />
+            <div className="p-2 bg-white border-2 border-slate-900 shadow-[2px_2px_0_0_#0f172a] rounded-none group-hover:-rotate-12 group-hover:scale-110 transition-all duration-200">
+              <Glasses className="w-6 h-6 text-slate-900" />
             </div>
             <span className="font-bold text-xl tracking-tight text-white">
               Quiz<span className="text-indigo-400">Master</span>
