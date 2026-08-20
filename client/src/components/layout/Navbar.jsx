@@ -22,7 +22,7 @@ export const Navbar = () => {
           </Link>
 
           <div className="flex items-center gap-4">
-            <Link to="/leaderboard" className="hidden sm:inline-flex text-slate-300 hover:text-white transition-colors text-sm font-medium">
+            <Link to="/leaderboard" className="hidden sm:inline-flex text-slate-400 hover:text-slate-100 transition-colors text-sm font-medium">
               Leaderboard
             </Link>
             {user ? (

@@ -39,19 +39,19 @@ export const AttemptsList = () => {
         <div className="flex bg-slate-800 p-1 rounded-lg border border-slate-700">
           <button
             onClick={() => setSearchParams({ status: 'ALL' })}
-            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${filterStatus === 'ALL' ? 'bg-indigo-500 text-white' : 'text-slate-400 hover:text-white'}`}
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${filterStatus === 'ALL' ? 'bg-indigo-500 text-white' : 'text-slate-400 hover:text-slate-100'}`}
           >
             All
           </button>
           <button
             onClick={() => setSearchParams({ status: 'PASSED' })}
-            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${filterStatus === 'PASSED' ? 'bg-green-600 text-white' : 'text-slate-400 hover:text-white'}`}
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${filterStatus === 'PASSED' ? 'bg-green-600 text-white' : 'text-slate-400 hover:text-slate-100'}`}
           >
             <CheckCircle className="w-4 h-4" /> Passed
           </button>
           <button
             onClick={() => setSearchParams({ status: 'FAILED' })}
-            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${filterStatus === 'FAILED' ? 'bg-red-600 text-white' : 'text-slate-400 hover:text-white'}`}
+            className={`px-4 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${filterStatus === 'FAILED' ? 'bg-red-600 text-white' : 'text-slate-400 hover:text-slate-100'}`}
           >
             <XCircle className="w-4 h-4" /> Failed
           </button>

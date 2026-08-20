@@ -178,7 +178,7 @@ export const UserManagement = () => {
           <div className="bg-slate-900 border border-slate-700 w-full max-w-md rounded-xl shadow-2xl overflow-hidden">
             <div className="flex justify-between items-center p-6 border-b border-slate-800">
               <h2 className="text-xl font-bold text-white">Create Student Account</h2>
-              <button onClick={() => { setIsAddModalOpen(false); reset(); }} className="text-slate-400 hover:text-white">
+              <button onClick={() => { setIsAddModalOpen(false); reset(); }} className="text-slate-400 hover:text-slate-100">
                 <X className="w-5 h-5" />
               </button>
             </div>
