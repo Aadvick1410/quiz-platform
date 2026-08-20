@@ -54,8 +54,8 @@ export const Login = () => {
       <div className="w-full max-w-md relative z-10 animate-slide-up">
         <div className="text-center mb-8">
           <div className="flex justify-center mb-8">
-            <div className="p-3 bg-white border-2 border-slate-900 shadow-[4px_4px_0_0_#0f172a] rounded-none rotate-3">
-              <Glasses className="w-10 h-10 text-slate-900" />
+            <div className="p-3 bg-white border-2 border-slate-100 shadow-[4px_4px_0_0_#1e293b] rounded-none rotate-3">
+              <Glasses className="w-10 h-10 text-slate-100" />
             </div>
           </div>
           <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
