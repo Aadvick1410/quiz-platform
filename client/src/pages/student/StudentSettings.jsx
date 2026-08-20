@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -8,13 +8,13 @@ import { updateProfile, getMe } from '../../api/auth';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
 import { Card, CardBody } from '../../components/ui/Card';
-import { User, Lock, Phone, Image as ImageIcon } from 'lucide-react';
+import { User, Lock, Phone, Camera } from 'lucide-react';
 
 const profileSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
   phone: z.string().optional(),
-  avatar: z.string().url('Must be a valid URL').optional().or(z.literal('')),
+  avatar: z.string().optional().or(z.literal('')),
   password: z.string().min(6, 'Password must be at least 6 characters').optional().or(z.literal('')),
   confirmPassword: z.string().optional().or(z.literal(''))
 }).refine((data) => {
@@ -30,6 +30,23 @@ const profileSchema = z.object({
 export const StudentSettings = () => {
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [avatar, setAvatar] = useState(user?.avatar || null);
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) { // 2MB limit
+        toast.error('Image size must be less than 2MB');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: zodResolver(profileSchema),
@@ -48,11 +65,11 @@ export const StudentSettings = () => {
       try {
         const response = await getMe();
         const userData = response.data;
+        setAvatar(userData.avatar || null);
         reset({
           name: userData.name || '',
           email: userData.email || '',
           phone: userData.phone || '',
-          avatar: userData.avatar || '',
           password: '',
           confirmPassword: ''
         });
@@ -70,7 +87,7 @@ export const StudentSettings = () => {
         name: data.name,
         email: data.email,
         phone: data.phone || null,
-        avatar: data.avatar || null,
+        avatar: avatar,
       };
       if (data.password) {
         payload.password = data.password;
@@ -122,18 +139,50 @@ export const StudentSettings = () => {
               <h3 className="text-lg font-semibold text-white flex items-center gap-2 border-b border-slate-700 pb-2 mt-8">
                 <Phone className="w-5 h-5 text-indigo-400" /> Contact & Media
               </h3>
+              <div className="flex items-center gap-6 mb-8">
+                <div className="relative group">
+                  <div className="w-24 h-24 rounded-full overflow-hidden bg-slate-800 border-2 border-slate-700 flex items-center justify-center">
+                    {avatar ? (
+                      <img src={avatar} alt="Profile" className="w-full h-full object-cover" />
+                    ) : (
+                      <User className="w-10 h-10 text-slate-500" />
+                    )}
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-full"
+                  >
+                    <Camera className="w-6 h-6 text-white" />
+                  </button>
+                </div>
+                <div>
+                  <h3 className="font-medium text-slate-200">Profile Picture</h3>
+                  <p className="text-sm text-slate-400 mb-3">JPG, GIF or PNG. Max size 2MB.</p>
+                  <input 
+                    type="file" 
+                    ref={fileInputRef} 
+                    onChange={handleFileChange} 
+                    accept="image/jpeg, image/png, image/gif" 
+                    className="hidden" 
+                  />
+                  <Button type="button" variant="outline" size="sm" onClick={() => fileInputRef.current?.click()}>
+                    Upload New
+                  </Button>
+                  {avatar && (
+                    <Button type="button" variant="ghost" size="sm" className="ml-2 text-red-400 hover:text-red-300" onClick={() => setAvatar(null)}>
+                      Remove
+                    </Button>
+                  )}
+                </div>
+              </div>
+              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input
                   label="Phone Number (Optional)"
                   placeholder="+1 (555) 000-0000"
                   {...register('phone')}
                   error={errors.phone?.message}
-                />
-                <Input
-                  label="Profile Picture URL (Optional)"
-                  placeholder="https://example.com/avatar.jpg"
-                  {...register('avatar')}
-                  error={errors.avatar?.message}
                 />
               </div>
             </div>
