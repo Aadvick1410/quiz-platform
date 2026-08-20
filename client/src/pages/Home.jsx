@@ -117,28 +117,37 @@ export const Home = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {quizzes.map(quiz => (
-            <Card key={quiz.id} hover className="flex flex-col h-full cursor-pointer" onClick={() => navigate(`/quizzes/${quiz.id}`)}>
-              <CardBody className="flex flex-col h-full p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <Badge variant="primary" className="bg-indigo-500/10 text-indigo-400 border-indigo-500/20">
-                    {quiz.category?.name || 'General'}
-                  </Badge>
-                  <Badge variant={
-                    quiz.difficulty === 'HARD' ? 'danger' : 
-                    quiz.difficulty === 'MEDIUM' ? 'warning' : 'success'
-                  }>
-                    {quiz.difficulty}
-                  </Badge>
-                </div>
-                
-                <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 flex-1">
-                  {quiz.title}
-                </h3>
-                
-                <p className="text-slate-400 text-sm mb-6 line-clamp-2">
-                  {quiz.description || 'No description provided.'}
-                </p>
+          {quizzes.map(quiz => {
+            const isUpcoming = quiz.scheduledFor && new Date(quiz.scheduledFor) > new Date();
+            
+            return (
+              <Card key={quiz.id} hover={!isUpcoming} className={`flex flex-col h-full ${!isUpcoming ? 'cursor-pointer' : 'opacity-70 cursor-not-allowed'}`} onClick={() => !isUpcoming && navigate(`/quizzes/${quiz.id}`)}>
+                <CardBody className="flex flex-col h-full p-6">
+                  <div className="flex justify-between items-start mb-4">
+                    <Badge variant="primary" className="bg-indigo-500/10 text-indigo-400 border-indigo-500/20">
+                      {quiz.category?.name || 'General'}
+                    </Badge>
+                    {isUpcoming ? (
+                      <Badge variant="default" className="bg-indigo-900 text-indigo-100 border-indigo-500">
+                        Starts {new Date(quiz.scheduledFor).toLocaleString()}
+                      </Badge>
+                    ) : (
+                      <Badge variant={
+                        quiz.difficulty === 'HARD' ? 'danger' : 
+                        quiz.difficulty === 'MEDIUM' ? 'warning' : 'success'
+                      }>
+                        {quiz.difficulty}
+                      </Badge>
+                    )}
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-white mb-2 line-clamp-2 flex-1">
+                    {quiz.title} {isUpcoming && '(Upcoming)'}
+                  </h3>
+                  
+                  <p className="text-slate-400 text-sm mb-6 line-clamp-2">
+                    {quiz.description || 'No description provided.'}
+                  </p>
                 
                 <div className="grid grid-cols-2 gap-4 text-sm text-slate-300 mt-auto pt-4 border-t border-slate-700/50">
                   <div className="flex items-center gap-2">
@@ -160,7 +169,8 @@ export const Home = () => {
                 </div>
               </CardBody>
             </Card>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

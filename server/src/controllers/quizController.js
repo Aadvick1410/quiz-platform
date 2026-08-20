@@ -60,7 +60,7 @@ export const getQuizById = async (req, res, next) => {
 
 export const createQuiz = async (req, res, next) => {
   try {
-    const { title, description, categoryId, difficulty, duration, passingScore, maxAttempts } = req.body;
+    const { title, description, categoryId, difficulty, duration, passingScore, maxAttempts, scheduledFor } = req.body;
     
     const quiz = await prisma.quiz.create({
       data: {
@@ -71,6 +71,7 @@ export const createQuiz = async (req, res, next) => {
         duration: parseInt(duration),
         passingScore: parseInt(passingScore),
         maxAttempts: parseInt(maxAttempts),
+        scheduledFor: scheduledFor ? new Date(scheduledFor) : null,
       },
     });
     res.status(201).json({ message: 'Quiz created successfully', quiz });
@@ -88,6 +89,11 @@ export const updateQuiz = async (req, res, next) => {
     if (data.duration) data.duration = parseInt(data.duration);
     if (data.passingScore) data.passingScore = parseInt(data.passingScore);
     if (data.maxAttempts) data.maxAttempts = parseInt(data.maxAttempts);
+    if (data.scheduledFor) {
+      data.scheduledFor = new Date(data.scheduledFor);
+    } else if (data.scheduledFor === null) {
+      data.scheduledFor = null;
+    }
 
     const quiz = await prisma.quiz.update({
       where: { id: parseInt(id) },

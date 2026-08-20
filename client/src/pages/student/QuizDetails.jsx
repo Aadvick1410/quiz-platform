@@ -124,14 +124,20 @@ export const QuizDetails = () => {
                 </li>
               </ul>
               
-              <Button 
-                className="w-full" 
-                size="lg" 
-                onClick={handleStartQuiz}
-                isLoading={isStarting}
-              >
-                Start Quiz Now
-              </Button>
+              {(() => {
+                const isUpcoming = quiz.scheduledFor && new Date(quiz.scheduledFor) > new Date();
+                return (
+                  <Button 
+                    className="w-full" 
+                    size="lg" 
+                    onClick={handleStartQuiz}
+                    isLoading={isStarting}
+                    disabled={isUpcoming}
+                  >
+                    {isUpcoming ? `Available ${new Date(quiz.scheduledFor).toLocaleString()}` : 'Start Quiz Now'}
+                  </Button>
+                );
+              })()}
             </div>
           </div>
         </CardBody>

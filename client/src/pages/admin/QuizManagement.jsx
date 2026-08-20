@@ -21,6 +21,7 @@ const quizSchema = z.object({
   duration: z.string().min(1, 'Duration is required'),
   passingScore: z.string().min(1, 'Passing score is required'),
   maxAttempts: z.string().optional(),
+  scheduledFor: z.string().optional(),
 });
 
 export const QuizManagement = () => {
@@ -66,7 +67,8 @@ export const QuizManagement = () => {
         categoryId: parseInt(data.categoryId),
         duration: parseInt(data.duration),
         passingScore: parseInt(data.passingScore),
-        maxAttempts: data.maxAttempts ? parseInt(data.maxAttempts) : 1
+        maxAttempts: data.maxAttempts ? parseInt(data.maxAttempts) : 1,
+        scheduledFor: data.scheduledFor ? new Date(data.scheduledFor).toISOString() : null
       };
 
       if (editingId) {
@@ -95,6 +97,7 @@ export const QuizManagement = () => {
     setValue('duration', quiz.duration.toString());
     setValue('passingScore', quiz.passingScore.toString());
     setValue('maxAttempts', quiz.maxAttempts.toString());
+    setValue('scheduledFor', quiz.scheduledFor ? new Date(quiz.scheduledFor).toISOString().slice(0,16) : '');
     setShowForm(true);
   };
 
@@ -201,6 +204,13 @@ export const QuizManagement = () => {
                   {...register('maxAttempts')}
                   error={errors.maxAttempts?.message}
                 />
+
+                <Input
+                  label="Schedule For (Optional)"
+                  type="datetime-local"
+                  {...register('scheduledFor')}
+                  error={errors.scheduledFor?.message}
+                />
               </div>
 
               <div className="flex justify-end pt-4">
@@ -246,6 +256,14 @@ export const QuizManagement = () => {
                     <span>{quiz.duration} mins</span>
                     <span>•</span>
                     <span>{quiz._count?.questions || 0} Questions</span>
+                    {quiz.scheduledFor && (
+                      <>
+                        <span>•</span>
+                        <span className="text-indigo-600 font-bold bg-indigo-100 px-2 py-0.5 rounded-none border border-indigo-200">
+                          Scheduled: {new Date(quiz.scheduledFor).toLocaleString()}
+                        </span>
+                      </>
+                    )}
                   </div>
                 </div>
 

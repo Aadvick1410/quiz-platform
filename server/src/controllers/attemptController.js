@@ -15,6 +15,10 @@ export const startQuiz = async (req, res, next) => {
       return res.status(404).json({ error: 'Quiz not found or not published' });
     }
 
+    if (quiz.scheduledFor && new Date(quiz.scheduledFor) > new Date()) {
+      return res.status(403).json({ error: 'This quiz has not started yet' });
+    }
+
     const previousAttempts = await prisma.attempt.count({
       where: { quizId: parseInt(quizId), userId },
     });
