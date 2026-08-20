@@ -34,8 +34,8 @@ export const QuizResult = () => {
     <div className="max-w-4xl mx-auto space-y-8 animate-fade-in pb-12">
       <div className="text-center space-y-4 mb-12">
         <div className={`inline-flex p-4 rounded-full mb-4 ${
-          isPassed ? 'bg-green-500/20 text-green-400 border border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.3)]' 
-                   : 'bg-red-500/20 text-red-400 border border-red-500/30 shadow-[0_0_30px_rgba(239,68,68,0.3)]'
+          isPassed ? 'bg-green-100 text-green-600 border border-green-300 shadow-[0_0_30px_rgba(34,197,94,0.2)]' 
+                   : 'bg-red-100 text-red-600 border border-red-300 shadow-[0_0_30px_rgba(239,68,68,0.2)]'
         }`}>
           {isPassed ? <Award className="w-16 h-16" /> : <XCircle className="w-16 h-16" />}
         </div>
@@ -43,7 +43,7 @@ export const QuizResult = () => {
           {isPassed ? 'Congratulations!' : 'Keep Practicing!'}
         </h1>
         <p className="text-xl text-slate-300">
-          You scored <span className={`font-bold ${isPassed ? 'text-green-400' : 'text-red-400'}`}>
+          You scored <span className={`font-bold ${isPassed ? 'text-green-600' : 'text-red-600'}`}>
             {attempt.percentage.toFixed(1)}%
           </span> on {quiz.title}
         </p>
@@ -62,13 +62,13 @@ export const QuizResult = () => {
         <Card>
           <CardBody className="p-6 text-center">
             <p className="text-sm text-slate-400 font-medium mb-1">Correct</p>
-            <p className="text-2xl font-bold text-green-400">{attempt.correctAnswers}</p>
+            <p className="text-2xl font-bold text-green-600">{attempt.correctAnswers}</p>
           </CardBody>
         </Card>
         <Card>
           <CardBody className="p-6 text-center">
             <p className="text-sm text-slate-400 font-medium mb-1">Incorrect</p>
-            <p className="text-2xl font-bold text-red-400">{attempt.incorrectAnswers}</p>
+            <p className="text-2xl font-bold text-red-600">{attempt.incorrectAnswers}</p>
           </CardBody>
         </Card>
         <Card>
@@ -136,15 +136,15 @@ export const QuizResult = () => {
                       const isUserSelected = userAnswer?.selectedOptionId === option.id;
                       const isOptionCorrect = option.isCorrect;
 
-                      let borderClass = 'border-slate-700 bg-slate-800/30';
-                      let textClass = 'text-slate-300';
+                      let borderClass = 'border-slate-700 bg-slate-800';
+                      let textClass = 'text-slate-200';
 
                       if (isOptionCorrect) {
-                        borderClass = 'border-green-500/50 bg-green-500/10 shadow-[0_0_15px_rgba(34,197,94,0.1)]';
-                        textClass = 'text-green-300 font-medium';
+                        borderClass = 'border-green-400 bg-green-100 shadow-[0_0_15px_rgba(34,197,94,0.1)]';
+                        textClass = 'text-green-800 font-bold';
                       } else if (isUserSelected && !isOptionCorrect) {
-                        borderClass = 'border-red-500/50 bg-red-500/10 shadow-[0_0_15px_rgba(239,68,68,0.1)]';
-                        textClass = 'text-red-300 line-through opacity-70';
+                        borderClass = 'border-red-300 bg-red-50 shadow-[0_0_15px_rgba(239,68,68,0.1)]';
+                        textClass = 'text-red-700 line-through opacity-80';
                       }
 
                       return (

@@ -7,17 +7,17 @@
   --color-brand-600: #7d2ae8; /* Canva purple */
   --color-brand-900: #3b0086;
 
-  /* Soft, airy light theme base */
-  --color-slate-50: #ffffff; /* Main background */
-  --color-slate-100: #f4f5f7; /* Soft gray for sidebars/panels */
-  --color-slate-200: #e1e3e8; /* Borders */
-  --color-slate-300: #ced2d9;
-  --color-slate-400: #9da3af;
-  --color-slate-500: #6b7280;
-  --color-slate-600: #4b5563;
-  --color-slate-700: #374151; /* Normal text */
-  --color-slate-800: #1f2937; /* Headings */
-  --color-slate-900: #111827; /* Darkest */
+  /* INVERT SLATE SCALE FOR PERFECT LIGHT MODE */
+  --color-slate-50: #111827; /* Darkest */
+  --color-slate-100: #1f2937; /* Headings */
+  --color-slate-200: #374151; /* Normal text */
+  --color-slate-300: #4b5563; /* Muted text */
+  --color-slate-400: #6b7280; /* Muted text */
+  --color-slate-500: #9da3af; /* Disabled text */
+  --color-slate-600: #ced2d9; /* Darker borders */
+  --color-slate-700: #e1e3e8; /* Normal borders */
+  --color-slate-800: #f4f5f7; /* Off-white for panels */
+  --color-slate-900: #ffffff; /* Main background */
 
   /* Friendly, modern sans-serif */
   --font-sans: 'Inter', 'Segoe UI', Roboto, sans-serif;
@@ -27,7 +27,7 @@
 @layer base {
   body {
     /* Canva has a very slight off-white background to make white cards pop */
-    @apply bg-slate-100 text-slate-700 antialiased;
+    @apply bg-slate-800 text-slate-200 antialiased;
     font-family: var(--font-sans);
   }
 
@@ -49,13 +49,21 @@
 
 /* Custom utilities */
 @layer utilities {
+  /* Fix hardcoded text-white in original components */
+  .text-white {
+    color: var(--color-slate-50) !important;
+  }
+  .canva-gradient-bg, .canva-gradient-bg .text-white, .bg-red-500, .bg-red-500 .text-white {
+    color: #ffffff !important;
+  }
+
   .glass {
     /* Pure white cards with soft, airy shadows */
-    @apply bg-white border border-slate-200/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)];
+    @apply bg-slate-900 border border-slate-700/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)];
   }
   .glass-card {
     /* Extremely smooth, rounded cards */
-    @apply bg-white border border-slate-200/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] rounded-2xl overflow-hidden transition-all duration-300;
+    @apply bg-slate-900 border border-slate-700/60 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] rounded-2xl overflow-hidden transition-all duration-300;
   }
   .glass-card:hover {
     /* Smooth lift, Canva style */
