@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  name      String
+  email     String     @unique
+  phone     String?
+  avatar    String?
+  password  String
+  role      String     @default("STUDENT")
+  status    String     @default("ACTIVE")
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+
+  attempts  Attempt[]
+
+  @@map("users")
+}
+
+model Category {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?  
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  quizzes     Quiz[]
+
+  @@map("categories")
+}
+
+model Quiz {
+  id            Int        @id @default(autoincrement())
+  title         String
+  description   String?    
+  categoryId    Int        @map("category_id")
+  difficulty    String     @default("MEDIUM")
+  duration      Int        // in minutes
+  passingScore  Int        @map("passing_score") // percentage
+  maxAttempts   Int        @default(1) @map("max_attempts")
+  status        String     @default("DRAFT")
+  thumbnail     String?
+  createdAt     DateTime   @default(now()) @map("created_at")
+  updatedAt     DateTime   @updatedAt @map("updated_at")
+
+  category      Category   @relation(fields: [categoryId], references: [id])
+  questions     Question[]
+  attempts      Attempt[]
+
+  @@map("quizzes")
+}
+
+model Question {
+  id           Int        @id @default(autoincrement())
+  quizId       Int        @map("quiz_id")
+  questionText String     @map("question_text")
+  marks        Int        @default(1)
+  explanation  String?    
+  difficulty   String     @default("MEDIUM")
+  createdAt    DateTime   @default(now()) @map("created_at")
+
+  quiz         Quiz       @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  options      Option[]
+  answers      Answer[]
+
+  @@map("questions")
+}
+
+model Option {
+  id         Int      @id @default(autoincrement())
+  questionId Int      @map("question_id")
+  optionText String   @map("option_text")
+  isCorrect  Boolean  @default(false) @map("is_correct")
+
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answers    Answer[]
+
+  @@map("options")
+}
+
+model Attempt {
+  id              Int           @id @default(autoincrement())
+  quizId          Int           @map("quiz_id")
+  userId          Int           @map("user_id")
+  score           Int           @default(0)
+  percentage      Float         @default(0)
+  correctAnswers  Int           @default(0) @map("correct_answers")
+  incorrectAnswers Int          @default(0) @map("incorrect_answers")
+  unanswered      Int           @default(0)
+  timeTaken       Int?          @map("time_taken") // in seconds
+  status          String        @default("IN_PROGRESS")
+  startedAt       DateTime      @default(now()) @map("started_at")
+  expiresAt       DateTime      @map("expires_at")
+  completedAt     DateTime?     @map("completed_at")
+
+  quiz            Quiz          @relation(fields: [quizId], references: [id])
+  user            User          @relation(fields: [userId], references: [id])
+  answers         Answer[]
+
+  @@map("attempts")
+}
+
+model Answer {
+  id              Int      @id @default(autoincrement())
+  attemptId       Int      @map("attempt_id")
+  questionId      Int      @map("question_id")
+  selectedOptionId Int?    @map("selected_option_id")
+  isCorrect       Boolean  @default(false) @map("is_correct")
+
+  attempt         Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question        Question @relation(fields: [questionId], references: [id])
+  selectedOption  Option?  @relation(fields: [selectedOptionId], references: [id])
+
+  @@map("answers")
+}
