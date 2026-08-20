@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { BrainCircuit, Loader2 } from 'lucide-react';
+import { Glasses, Loader2 } from 'lucide-react';
 
 import { useAuth } from '../../context/AuthContext';
 import { loginUser } from '../../api/auth';
@@ -53,8 +53,10 @@ export const Login = () => {
 
       <div className="w-full max-w-md relative z-10 animate-slide-up">
         <div className="text-center mb-8">
-          <div className="inline-flex p-3 bg-indigo-500/20 rounded-xl mb-4 border border-indigo-500/30">
-            <BrainCircuit className="w-10 h-10 text-indigo-400" />
+          <div className="flex justify-center mb-8">
+            <div className="p-3 bg-white border-2 border-slate-900 shadow-[4px_4px_0_0_#0f172a] rounded-none rotate-3">
+              <Glasses className="w-10 h-10 text-slate-900" />
+            </div>
           </div>
           <h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
           <p className="text-slate-400">Sign in to continue to QuizMaster</p>
