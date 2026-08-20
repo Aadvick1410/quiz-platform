@@ -66,13 +66,13 @@ export default function App() {
                 <Route path="/admin/analytics" element={<AdminAnalytics />} />
                 <Route path="/admin/settings" element={<AdminSettings />} />
               </Route>
-              <Route path="/settings" element={
-                <ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']}>
+              <Route element={<ProtectedRoute allowedRoles={['STUDENT', 'ADMIN']} />}>
+                <Route path="/settings" element={
                   <ErrorBoundary>
                     <StudentSettings />
                   </ErrorBoundary>
-                </ProtectedRoute>
-              } />
+                } />
+              </Route>
             </Route>
             
             {/* Quiz Attempt without Layout (Full Screen) */}
